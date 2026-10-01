@@ -145,3 +145,11 @@ REST_FRAMEWORK = {
     ],
 }
 
+# OpenRouteService (ORS) API Key
+import os
+OPENROUTESERVICE_API_KEY = os.getenv(
+    'OPENROUTESERVICE_API_KEY',
+    'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImVlYTYyZmNkNGM1ZjRlNjFiM2FkZmNlYjdlZDhkNjJjIiwiaCI6Im11cm11cjY0In0='
+)
+
+

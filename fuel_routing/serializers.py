@@ -44,6 +44,7 @@ class FuelStopSerializer(serializers.Serializer):
 class RouteSummarySerializer(serializers.Serializer):
     start_location = serializers.CharField()
     finish_location = serializers.CharField()
+    routing_provider = serializers.CharField(required=False, default="OpenRouteService")
     total_distance_miles = serializers.FloatField()
     estimated_duration = serializers.CharField()
     total_gallons_consumed = serializers.FloatField()

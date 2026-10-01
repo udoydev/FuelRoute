@@ -6,7 +6,7 @@ from rest_framework import status
 
 from .serializers import RouteRequestSerializer, RouteResponseSerializer
 from .services.geocoding import geocode_location
-from .services.routing_client import fetch_route_osrm
+from .services.routing_client import fetch_driving_route
 from .services.spatial_index import FuelStationSpatialIndex
 from .services.fuel_optimizer import optimize_fuel_stops
 
@@ -133,12 +133,13 @@ class RouteOptimizationAPIView(APIView):
             start_lat, start_lon, start_name = geocode_location(start_query)
             finish_lat, finish_lon, finish_name = geocode_location(finish_query)
 
-            # Step 2: Fetch route from OSRM (1 single HTTP call)
-            route_result = fetch_route_osrm(start_lat, start_lon, finish_lat, finish_lon)
+            # Step 2: Fetch driving route using OpenRouteService with key (1 single HTTP call)
+            route_result = fetch_driving_route(start_lat, start_lon, finish_lat, finish_lon)
             total_distance = route_result["total_distance_miles"]
             route_coords = route_result["coordinates"]
             cumulative_dists = route_result["cumulative_distances"]
             duration_formatted = route_result["duration_formatted"]
+            provider_name = route_result.get("provider", "OpenRouteService")
 
             # Step 3: Query spatial index for candidate fuel stations along route
             spatial_index = FuelStationSpatialIndex.get_instance()
@@ -169,6 +170,7 @@ class RouteOptimizationAPIView(APIView):
                 "route_summary": {
                     "start_location": start_name,
                     "finish_location": finish_name,
+                    "routing_provider": provider_name,
                     "total_distance_miles": total_distance,
                     "estimated_duration": duration_formatted,
                     "total_gallons_consumed": total_gallons,
