@@ -180,12 +180,3 @@ Import `postman_collection.json` into Postman to test:
 
 ---
 
-## 🎥 5-Minute Loom Video Script
-
-| Time | Slide / Screen | Talking Points |
-| :--- | :--- | :--- |
-| **0:00 - 0:45** | Codebase & Architecture | "Hi! I am Md Imran Nazir. Today I'm presenting the Fuel Route Optimization Engine built in Django 5.1 and DRF. The system takes start and finish locations in the US, fetches the route via OSRM in a single call, filters fuel stations within a highway corridor using an in-memory 3D KD-Tree, and optimizes fuel stops for a 500-mile range vehicle at 10 MPG." |
-| **0:45 - 2:00** | Postman Live Demo | Open Postman with the provided collection. Run `Austin, TX` to `Nashville, TN`. Point out the speed (< 400ms), 1 single stop at mile 358 in Texarkana, total distance 858 miles, total gallons 85.83, and total cost. Then run `New York` to `Los Angeles` (2,794 miles) showing 5 stops, all with gap $\le 500$ miles. |
-| **2:00 - 3:00** | Interactive Map UI | Open `http://localhost:8000/` in browser. Click 'Austin → Nashville' and 'New York → LA'. Show the blue route line, origin/destination pins, and amber gas pump markers with price popups. |
-| **3:00 - 4:15** | Code Walkthrough | Show `fuel_routing/services/`: 1) `routing_client.py` (single OSRM call), 2) `spatial_index.py` (spherical KD-Tree querying 6,600 stations in 3ms), 3) `fuel_optimizer.py` (DAG cost minimization ensuring $\le 500$ mi gap). |
-| **4:15 - 5:00** | Tests & Conclusion | Run `python manage.py test tests -v 2` in terminal. Show all 14 tests passing. Wrap up with enthusiasm for the Django Backend Engineer role. |
