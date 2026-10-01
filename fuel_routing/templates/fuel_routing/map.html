@@ -520,21 +520,28 @@
 
         L.control.zoom({ position: 'topright' }).addTo(map);
 
-        // Clean OpenStreetMap standard tile layer (100% free, zero watermark, no API key needed)
-        const osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+        // High-definition Esri World Street layer (100% free, no 403 blocks, no watermarks, no API key)
+        const esriStreet = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom',
             maxZoom: 19
         }).addTo(map);
 
-        // High-definition Esri Street layer as an alternative
-        const esriLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        // Esri World Topographic Layer
+        const esriTopo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri',
             maxZoom: 19
         });
 
+        // Esri Dark Canvas Layer
+        const esriDark = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri',
+            maxZoom: 16
+        });
+
         L.control.layers({
-            "OpenStreetMap (Standard)": osmLayer,
-            "Esri Street View": esriLayer
+            "Esri Street View (Recommended)": esriStreet,
+            "Esri Topographic": esriTopo,
+            "Esri Dark Canvas": esriDark
         }, null, { position: 'topright' }).addTo(map);
 
         let routeLayerGroup = L.layerGroup().addTo(map);
