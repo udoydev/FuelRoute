@@ -1,0 +1,131 @@
+{
+  "info": {
+    "_postman_id": "fuel-route-optimizer-api",
+    "name": "Fuel Route Optimizer API",
+    "description": "Postman Collection for Django Fuel Route Optimization Engine assessment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Multi-Stop Route: Austin, TX to Nashville, TN (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Austin, TX\",\n  \"finish\": \"Nashville, TN\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/route/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "route", ""]
+        },
+        "description": "Tests an ~858-mile route requiring 1 optimal fuel stop within the 500-mile range constraint."
+      }
+    },
+    {
+      "name": "2. Cross-Country Route: New York, NY to Los Angeles, CA (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"New York, NY\",\n  \"finish\": \"Los Angeles, CA\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/route/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "route", ""]
+        },
+        "description": "Tests a 2,790-mile coast-to-coast route requiring 5 optimal fuel stops."
+      }
+    },
+    {
+      "name": "3. Short Route: Austin, TX to San Antonio, TX (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Austin, TX\",\n  \"finish\": \"San Antonio, TX\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/route/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "route", ""]
+        },
+        "description": "Tests a short trip (< 500 miles) that requires 0 stops."
+      }
+    },
+    {
+      "name": "4. GET Endpoint: Chicago, IL to Miami, FL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/route/?start=Chicago,%20IL&finish=Miami,%20FL",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "route", ""],
+          "query": [
+            {
+              "key": "start",
+              "value": "Chicago, IL"
+            },
+            {
+              "key": "finish",
+              "value": "Miami, FL"
+            }
+          ]
+        },
+        "description": "Tests query parameter GET interface."
+      }
+    },
+    {
+      "name": "5. Error Validation: Missing Finish Location",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Austin, TX\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/route/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["api", "route", ""]
+        },
+        "description": "Tests 400 Bad Request error handling for missing required fields."
+      }
+    }
+  ]
+}
